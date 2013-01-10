@@ -5,7 +5,7 @@
   (sql/with-connection "postgres://podviaznikov@localhost/podviaznikov"
     (sql/create-table :messages
       [:id :serial "PRIMARY KEY"]
-      [:sender_urn :varchar "NOT NULL"]
+	  [:sender_urn :varchar "NOT NULL"]
       [:receiver_urn :varchar "NOT NULL"]
       [:topic_urn :varchar "NOT NULL"]
       [:message :text "NOT NULL"]	
