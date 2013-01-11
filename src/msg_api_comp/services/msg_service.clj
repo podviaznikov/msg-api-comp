@@ -18,7 +18,7 @@
 (defn inbox [user_urn]
 	(select [messages :c1]
         (fields :topic_urn 
-         	[(subselect messages
+           [(subselect messages
                (aggregate (count :*) :message_count)
                (where {:topic_urn :c1.topic_urn})) :message_count])))
 
