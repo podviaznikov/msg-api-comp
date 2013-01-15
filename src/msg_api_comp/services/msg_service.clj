@@ -47,11 +47,11 @@
 
 (defn -main []
   (print "Executing sql calls") (flush)
-  (create {:topic_urn "msg-api-comp discusiion"
+  (create {:topic_urn "msg-api-comp discussion"
            :sender_urn "http://twitter.com/podviaznikov"
            :receiver_urn "http://twitter.com/m_aleksandrova"
            :message "Hi, can we discuss this project together?"})
-  (create {:topic_urn "msg-api-comp discusiion"
+  (create {:topic_urn "msg-api-comp discussion"
            :sender_urn "http://twitter.com/m_aleksandrova"
            :receiver_urn "http://twitter.com/podviaznikov"
            :message "Yeah, sure. When do you want to do it?"})
@@ -59,7 +59,6 @@
            :sender_urn "http://twitter.com/m_aleksandrova"
            :receiver_urn "http://twitter.com/anton"
            :message "We need to discuss New Year animation project"})
-  (all-for-topic "msg-api-comp discusiion")
+  (all-for-topic "msg-api-comp discussion")
 
-  (all-for-topic "msg-api-comp discusiion")
   (println " done..."))
