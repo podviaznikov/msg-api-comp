@@ -32,9 +32,9 @@
   (distinct (let [topics {}]
       (map (fn [row]
          (into topics {:topic_urn (row :topic_urn)
-                          :message_count (row :message_count)
-                          :last_update (row :last_update)
-                          :user_urn (if (= user-urn (row :sender_urn))
+                       :message_count (row :message_count)
+                       :last_update (row :last_update)
+                       :user_urn (if (= user-urn (row :sender_urn))
                                       (row :receiver_urn)
                                       (row :sender_urn))})) (get-inbox-data user-urn)))))
 
