@@ -15,12 +15,31 @@
   (select messages
     (where {:topic_urn topic_urn})))
 
-(defn inbox [user_urn]
-	(select [messages :c1]
-        (fields :topic_urn 
+(defn get-inbox-data [user-urn]
+  (select [messages :c1]
+          (modifier "distinct")
+          (fields :topic_urn :sender_urn :receiver_urn 
            [(subselect messages
                (aggregate (count :*) :message_count)
-               (where {:topic_urn :c1.topic_urn})) :message_count])))
+               (where {:topic_urn :c1.topic_urn})) :message_count]
+           [(subselect messages
+               (aggregate (max :created_at) :last_update)
+               (where {:topic_urn :c1.topic_urn})) :last_update]
+           [(subselect messages
+               (aggregate (max :created_at) :last_update)
+               (where {:topic_urn :c1.topic_urn})) :user_urn])
+          (where (or (= :receiver_urn user-urn)
+                     (= :sender_urn user-urn)))))
+
+(defn inbox [user-urn]
+  (distinct (let [topics {}]
+      (map (fn [row]
+         (into topics {:topic_urn (row :topic_urn)
+                          :message_count (row :message_count)
+                          :last_update (row :last_update)
+                          :user_urn (if (= user-urn (row :sender_urn))
+                                      (row :receiver_urn)
+                                      (row :sender_urn))})) (get-inbox-data user-urn)))))
 
 (defn create [message]
   (insert messages 
