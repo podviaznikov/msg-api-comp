@@ -6,4 +6,7 @@
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [org.clojure/java.jdbc "0.2.3"]
                  [postgresql "9.1-901.jdbc4"]
-  				 [korma "0.3.0-beta14"]])
+  				 [korma "0.3.0-beta14"]
+                 [compojure "1.1.5"]]
+  :plugins [[lein-ring "0.7.1"]]
+  :ring {:handler msg-api-comp.core/app})
